@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: mehediiutazurecloud 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mehediiutazurecloud
+  template:
+    metadata:
+      labels:
+        app: mehediiutazurecloud 
+    spec:
+      containers:
+        - name: mehediiutazurecloud 
+          image: meheditestcr.azurecr.io/mehediiutazurecloud
+          ports:
+          - containerPort: 80
