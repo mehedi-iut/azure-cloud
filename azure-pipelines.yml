@@ -32,7 +32,6 @@ stages:
       vmImage: $(vmImageName)
     steps:
     - script: echo -n -e "{\"version\":\"$(Build.BuildNumber) - $(tag)\"}" > petstore/petstorepetservice/src/main/resources/version.json
-    - 
     - task: Maven@4
       inputs:
         mavenPomFile: 'petstore/petstorepetservice/pom.xml'
