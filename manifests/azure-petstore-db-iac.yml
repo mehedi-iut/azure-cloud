@@ -1,0 +1,51 @@
+name: Deploy Database Infrastructure
+
+parameters:
+- name: resourceGroup
+  displayName: Database Resource Group
+  type: string
+  default: Test
+- name: region
+  displayName: Database Region
+  type: string
+  default: East US 2
+  values:
+  - East US
+  - East US 2
+  - West US
+  - West US 2
+- name: cosmosAccountName
+  displayName: Cosmos Account Name
+  type: string
+  default: AzurePetStore
+- name: cosmosDatabaseName
+  displayName: Cosmos Database Name
+  type: string
+  default: E-Commerce
+- name: cosmosContainerName
+  displayName: Cosmos Container Name
+  type: string
+  default: Orders
+
+trigger: none
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureServiceConnection: 'Azure'
+  templateFile: 'petstore/iac/bicep/db/main.bicep'
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: $(azureServiceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az --version
+      if [ $(az group exists --name ${{ parameters.resourceGroup }}) = false ]; then
+        az group create --name ${{ parameters.resourceGroup }} --location 'eastus'
+      fi
+      az deployment group create \
+        --resource-group ${{ parameters.resourceGroup }} --template-file $(templateFile) --parameters cosmosAccountName='${{ parameters.cosmosAccountName }}' cosmosPrimaryRegion='${{ parameters.region }}' cosmosDatabaseName='${{ parameters.cosmosDatabaseName }}' cosmosContainerName='${{ parameters.cosmosContainerName }}'
