@@ -43,13 +43,12 @@ stages:
         testResultsFiles: 'petstore/petstorepetservice/target/surefire-reports/TEST-*.xml'
         codeCoverageToolOption: 'JaCoCo'
         javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.8'
+        jdkVersionOption: '1.11'
         mavenVersionOption: 'Default'
         mavenOptions: '-Xmx3072m'
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-        goals: 'package'
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
