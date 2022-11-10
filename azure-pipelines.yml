@@ -5,7 +5,11 @@
 trigger:
 - main
 
-pool: myPool 
+pool: 
+  name: myPool
+  demands:
+  - maven
+  - Agent.Version -gtVersion 2.199
 
 resources:
 - repo: self
