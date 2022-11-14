@@ -16,7 +16,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: petstoreproductservice
-        image: azurepetstorecr.azurecr.io/petstoreproductservice:latest
+        image: meheditestcr.azurecr.io/petstoreproductservice:latest
         resources:
           requests:
             cpu: 250m
@@ -29,13 +29,13 @@ spec:
         env:
           - name: PETSTOREPRODUCTSERVICE_SERVER_PORT
             value: "80"
-          - name: spring.config.name
-            value: application_with_everything_enabled
-          - name: PETSTORESERVICES_AI_INSTRUMENTATION_KEY
-            valueFrom:
-              secretKeyRef:
-                name: aisecretkey
-                key: secret
+#           - name: spring.config.name
+#             value: application_with_everything_enabled
+#           - name: PETSTORESERVICES_AI_INSTRUMENTATION_KEY
+#             valueFrom:
+#               secretKeyRef:
+#                 name: aisecretkey
+#                 key: secret
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
